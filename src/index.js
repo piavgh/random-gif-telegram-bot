@@ -34,7 +34,7 @@ const giphyURL = encodeURI(
     giphyParams.rating
 );
 
-void (async function () {
+async function handler() {
   // const me = toObject(await airgram.api.getMe());
   // console.log('[Me] ', me);
 
@@ -51,6 +51,7 @@ void (async function () {
   console.log('Giphy URL: ', res.data.images.original.url);
 
   const { response } = await airgram.api.sendMessage({
+    // chatId: -747861381,
     chatId: process.env.TRACKED_CHAT_ID,
     inputMessageContent: {
       _: 'inputMessageText',
@@ -61,4 +62,8 @@ void (async function () {
   });
 
   console.log('response = ', response);
-})();
+}
+
+var CronJob = require('cron').CronJob;
+var job = new CronJob('0 * * * * *', handler, null, true, 'Asia/Ho_Chi_Minh');
+job.start();
