@@ -65,5 +65,11 @@ async function handler() {
 }
 
 var CronJob = require('cron').CronJob;
-var job = new CronJob('0 * * * * *', handler, null, true, 'Asia/Ho_Chi_Minh');
+var job = new CronJob(
+  String(process.env.SCHEDULE),
+  handler,
+  null,
+  true,
+  'Asia/Ho_Chi_Minh'
+);
 job.start();
